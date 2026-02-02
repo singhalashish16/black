@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: black;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .background-gradient {
+            position: absolute;
+            inset: 0;
+            transition: background 0.3s ease-out;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .quote-container {
+            max-width: 1200px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        .decorative-line {
+            width: 96px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+            margin: 0 auto 3rem;
+            transform: scaleX(0);
+            animation: expandLine 1s ease-out 0.6s forwards;
+        }
+
+        .decorative-line.bottom {
+            margin: 3rem auto 0;
+            animation-delay: 1.6s;
+        }
+
+        .quote {
+            margin: 1.5rem 0;
+        }
+
+        .quote p {
+            font-size: clamp(2rem, 5vw, 3.75rem);
+            line-height: 1.6;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.9);
+            opacity: 0;
+        }
+
+        .quote p:nth-child(1) {
+            animation: fadeIn 1s ease-out 0.8s forwards;
+        }
+
+        .quote p:nth-child(2) {
+            animation: fadeIn 1s ease-out 1s forwards;
+        }
+
+        .quote p:nth-child(3) {
+            animation: fadeIn 1s ease-out 1.2s forwards;
+        }
+
+        .quote p:nth-child(4) {
+            animation: fadeIn 1s ease-out 1.4s forwards;
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.02;
+            mix-blend-mode: soft-light;
+            z-index: 20;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=');
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes expandLine {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .decorative-line {
+                margin-bottom: 2rem;
+            }
+
+            .decorative-line.bottom {
+                margin-top: 2rem;
+            }
+
+            .quote {
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="background-gradient" id="bgGradient"></div>
+        
+        <div class="content">
+            <div class="quote-container">
+                <div class="decorative-line"></div>
+                
+                <div class="quote">
+                    <p>सच है विपत्ति जब आती है ,</p>
+                    <p>कायर को ही दहलाती है,</p>
+                    <p>शूरमा नहीं विचलित होते ,</p>
+                    <p>एक क्षण नहीं धीरज खोते</p>
+                </div>
+                
+                <div class="decorative-line bottom"></div>
+            </div>
+        </div>
+        
+        <div class="grain"></div>
+    </div>
+
+    <script>
+        const bgGradient = document.getElementById('bgGradient');
+        
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            
+            const invX = 100 - x;
+            const invY = 100 - y;
+            const altX = y;
+            const altY = x;
+            
+            bgGradient.style.background = `
+                radial-gradient(circle at ${x}% ${y}%, rgba(236, 72, 153, 0.15) 0%, rgba(0, 0, 0, 0) 50%),
+                radial-gradient(circle at ${invX}% ${invY}%, rgba(34, 197, 94, 0.12) 0%, rgba(0, 0, 0, 0) 50%),
+                radial-gradient(circle at ${altX}% ${altY}%, rgba(251, 146, 60, 0.1) 0%, rgba(0, 0, 0, 0) 50%),
+                black
+            `;
+        });
+    </script>
+</body>
+</html>
